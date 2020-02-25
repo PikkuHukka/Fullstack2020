@@ -1,11 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import App from './App'
-import reducer from './reducers/anecdoteReducer'
+import { createAnecdote } from './reducers/anecdoteReducer'
 
-const store = createStore(reducer)
+import store from './store'
+//Reducerit
+import App from './App'
+
+
+
+store.subscribe(() => console.log(store.getState()))
+store.dispatch(createAnecdote('combineReducers forms one reduces from many simple reducers'))
+
+
 
 ReactDOM.render(
   <Provider store={store}>

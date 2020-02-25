@@ -10,8 +10,7 @@ const AnecdoteList = () => {
     dispatch(newVote(id))
   }
 
-  const anecdotes = useSelector(state => state)
-
+  const anecdotes = useSelector(state => state.anecdotes)
   return (
     anecdotes.map(anecdote =>
       <div key={anecdote.id}>
