@@ -11,7 +11,8 @@ const AnecdoteList = () => {
   }
 
   const anecdotes = useSelector(state => {
-    return state.anecdotes.filter(anecdote => anecdote.content.includes(state.filter))
+    return state.anecdotes.filter(anecdote =>
+      anecdote.content.includes(state.filter))
   })
 
   return (

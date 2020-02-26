@@ -1,7 +1,5 @@
 
 const notificationReducer = (state = '', action) => {
-
-  console.log('action.data: ', action.data)
   switch (action.type) {
     case 'NEW_NOTIFICATION': {
 
@@ -16,14 +14,17 @@ const notificationReducer = (state = '', action) => {
 }
 
 
-export const createNotification = (content) => {
+export const createNotification = (content, seconds) => {
+  setTimeout(() => {
+    cancelNotification()
+  }, seconds * 1000)
   return {
     type: 'NEW_NOTIFICATION',
     data: content
   }
 }
 
-export const cancelNotification = (content) => {
+export const cancelNotification = () => {
   return {
     type: 'CANCEL_NOTIFICATION'
   }
