@@ -1,9 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-import { setNotification } from '../reducers/notificationReducer'
-
-import anecdoteService from '../services/anecdotes'
+import { createNotification } from '../reducers/notificationReducer'
 //import notificationService from '../services/anecdotes'
 
 
@@ -15,12 +13,9 @@ const AnecdoteForm = (props) => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     props.createAnecdote(content)
-
-    //const newNotification = await notificationService.setNotification(`you voted '${content}'`, 5)
-
+    props.createNotification(content)
 
   }
-
   return (
     <div>
       <h2>create new</h2>
@@ -30,9 +25,10 @@ const AnecdoteForm = (props) => {
       </form>
     </div>
   )
+
 }
 
 export default connect(
   null,
-  { createAnecdote }
+  { createAnecdote, createNotification }
 )(AnecdoteForm)
