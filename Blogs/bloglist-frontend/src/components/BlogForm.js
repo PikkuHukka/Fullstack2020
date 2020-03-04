@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
-const BlogForm = ({ createBlog }) => {
+import { createBlog } from '../reducers/blogReducer'
+
+
+const BlogForm = (props) => {
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
@@ -18,12 +22,12 @@ const BlogForm = ({ createBlog }) => {
 
   const addBlog = (event) => {
     event.preventDefault()
-    createBlog({
+    props.createBlog({
       title: newTitle,
       author: newAuthor,
       likes: 0,
-      url: newUrl
-    })
+      url: newUrl,
+    }, props.user)
 
     setNewAuthor('')
     setNewTitle('')
@@ -71,5 +75,17 @@ const BlogForm = ({ createBlog }) => {
   )
 }
 
-export default BlogForm
+const dispatchToProps = {
+  createBlog
+}
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  dispatchToProps
+)(BlogForm)
 

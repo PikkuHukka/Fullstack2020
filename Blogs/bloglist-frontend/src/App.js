@@ -3,6 +3,8 @@ import React from 'react'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Blogs from './components/Blogs'
+import BlogForm from './components/BlogForm'
+
 import { initializeBlogs } from './reducers/blogReducer'
 import LoginForm from './components/LoginForm'
 import { setUserFromToken } from './reducers/userReducer'
@@ -35,7 +37,11 @@ const App = (props) => {
     < div >
       {!props.user ?
         <LoginForm />
-        : <Blogs />
+        :
+        <div>
+          <Blogs />
+          <BlogForm />
+        </div>
       }
     </div >
   )

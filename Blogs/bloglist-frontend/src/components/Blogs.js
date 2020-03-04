@@ -12,7 +12,15 @@ const Blogs = (props) => {
 
 
 
-  const clickHandler = async (props, id, content) => {
+  const likeHandler = async (id) => {
+    console.log(id)
+    props.newLike(id)
+  }
+  const removeHandler = async (id) => {
+
+    if (!window.confirm("Do you really want to remove this blog?")) {
+      return
+    }
     console.log(id)
     props.newLike(id)
   }
@@ -29,9 +37,14 @@ const Blogs = (props) => {
       <ul>
         {props.visibleBlogs.map((blog, index) =>
           <div key={index}>
-            <Blog newID={index} blog={blog} handleClick={() =>
-              clickHandler(props, blog.id, blog)
-            } />
+            <Blog newID={index}
+              blog={blog}
+              handleLike={() =>
+                likeHandler(blog.id, blog)}
+              handleRemove={() =>
+                removeHandler(blog.id)}
+              user={props.user}
+            />
           </div>
         )}
       </ul>
@@ -54,7 +67,7 @@ const dispatchToProps = {
 const mapStateToProps = (state) => {
   return {
     visibleBlogs: blogsToShow(state),
-    setUser: state.user
+    user: state.user
   }
 }
 
