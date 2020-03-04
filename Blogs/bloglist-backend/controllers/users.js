@@ -5,6 +5,7 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
   const body = request.body
 
+  console.log('*** päästiin postiin.')
   if (body.password === undefined || body.password.length < 3) {
     return response.status(400).json({ error: 'password is too short' })
   }
@@ -13,6 +14,7 @@ usersRouter.post('/', async (request, response) => {
   const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
 
+  console.log('bcrypt toimi: ', passwordHash)
 
   const user = new User({
     username: body.username,
@@ -22,6 +24,7 @@ usersRouter.post('/', async (request, response) => {
 
   const savedUser = await user.save()
 
+  console.log('SavedUser: ', savedUser)
   response.json(savedUser)
 })
 

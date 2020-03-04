@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/user-event": "^7.2.1",
-    "bcrypt": "^3.0.8",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
