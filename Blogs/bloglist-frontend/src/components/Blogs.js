@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import { connect } from 'react-redux'
-import { newLike } from '../reducers/blogReducer'
+import { newLike, removeBlog } from '../reducers/blogReducer'
 import { clearUser } from '../reducers/userReducer'
 
 
@@ -21,8 +21,7 @@ const Blogs = (props) => {
     if (!window.confirm("Do you really want to remove this blog?")) {
       return
     }
-    console.log(id)
-    props.newLike(id)
+    props.removeBlog(id)
   }
 
   const handleLogout = async (event) => {
@@ -62,7 +61,8 @@ const blogsToShow = ({ blogs }) => {
 
 const dispatchToProps = {
   newLike,
-  clearUser
+  clearUser,
+  removeBlog
 }
 const mapStateToProps = (state) => {
   return {
