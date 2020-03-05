@@ -2,19 +2,24 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
+//Components
 import Blogs from './components/Blogs'
 import BlogForm from './components/BlogForm'
-
-import { initializeBlogs } from './reducers/blogReducer'
+import Notification from './components/Notification'
+import Footer from './components/Footer'
+import UserInfo from './components/UserInfo'
 import LoginForm from './components/LoginForm'
+
+//Reducers
+import { initializeBlogs } from './reducers/blogReducer'
 import { setUserFromToken } from './reducers/userReducer'
+//Services
 import blogService from './services/blogs'
+import userService from './services/users'
 
 const App = (props) => {
 
   const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-
-
 
   useEffect(() => {
     console.log('effect tapahtuu')
@@ -29,25 +34,25 @@ const App = (props) => {
     props.initializeBlogs()
   }, [])
 
-  console.log(props.user)
-  console.log(loggedUserJSON)
-
 
   return (
     < div >
+      <Notification />
       {!props.user ?
         <LoginForm />
         :
         <div>
+          <UserInfo />
           <Blogs />
           <BlogForm />
         </div>
       }
+      <Footer />
+
+
     </div >
   )
 }
-
-//export default connect(null, { initializeBlogs })(App)
 
 const dispatchToProps = {
   initializeBlogs,

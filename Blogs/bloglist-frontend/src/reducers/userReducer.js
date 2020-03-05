@@ -1,4 +1,5 @@
 import loginService from '../services/login'
+import { createSuccessNotification } from '../reducers/notificationReducer'
 
 const userReducer = (state = null, action) => {
   switch (action.type) {
@@ -11,33 +12,9 @@ const userReducer = (state = null, action) => {
   }
 }
 
-/*
- try {
-      const user = await loginService.login({
-        username, password,
-      })
-      console.log('user: ', user)
-      window.localStorage.setItem(
-        'loggedBlogappUser', JSON.stringify(user)
-      )
-      console.log('storageen laitto onnistuu?: ')
-
-      setUser(user)
-      console.log('set user onnistuu?')
-
-
-      blogService.setToken(user.token)
-    } catch (exception) {
-
-    }
-*/
-
 export const setUser = (content) => {
   return async dispatch => {
-    console.log('dispatchissa')
     const user = await loginService.login(content)
-    console.log('user: ', user)
-
     window.localStorage.setItem(
       'loggedBlogappUser', JSON.stringify(user)
     )
@@ -53,7 +30,7 @@ export const setUserFromToken = (content) => {
 
     dispatch({
       type: 'SET_LOGIN',
-      data: content.username
+      data: content
     })
   }
 }

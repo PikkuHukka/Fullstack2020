@@ -1,47 +1,49 @@
-import React, { useReducer } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { newLike, removeBlog } from '../reducers/blogReducer'
-import { clearUser } from '../reducers/userReducer'
-
-
+import { newLike, removeBlog, initializeBlogs } from '../reducers/blogReducer'
+import { createSuccessNotification, createErrorNotification, clearNotification } from '../reducers/notificationReducer'
 import Blog from './Blog'
 
 
 
 const Blogs = (props) => {
 
+  useEffect(() => {
+    props.initializeBlogs()
+  }, [])
 
-
-  const likeHandler = async (id) => {
-    console.log(id)
-    props.newLike(id)
+  const likeHandler = async (blog) => {
+    props.newLike(blog.id)
+    props.createSuccessNotification(`Liked blog ${blog.title}.`)
+    setTimeout(() => {
+      props.clearNotification()
+    }, 5000)
   }
-  const removeHandler = async (id) => {
+  const removeHandler = async (blog) => {
 
-    if (!window.confirm("Do you really want to remove this blog?")) {
+    if (!window.confirm(`Do you really want to remove ${blog.title}?`)) {
       return
     }
-    props.removeBlog(id)
-  }
+    props.createErrorNotification(`Removed ${blog.title}.`)
+    props.removeBlog(blog.id)
+    setTimeout(() => {
+      props.clearNotification()
+    }, 5000)
 
-  const handleLogout = async (event) => {
-    event.preventDefault()
-    props.clearUser()
   }
 
 
   return (
     <div>
-      <button onClick={handleLogout}>Logout </button>
       <ul>
-        {props.visibleBlogs.map((blog, index) =>
-          <div key={index}>
-            <Blog newID={index}
+        {props.visibleBlogs.map(blog =>
+          <div key={blog.id}>
+            <Blog
               blog={blog}
               handleLike={() =>
-                likeHandler(blog.id, blog)}
+                likeHandler(blog)}
               handleRemove={() =>
-                removeHandler(blog.id)}
+                removeHandler(blog)}
               user={props.user}
             />
           </div>
@@ -61,8 +63,11 @@ const blogsToShow = ({ blogs }) => {
 
 const dispatchToProps = {
   newLike,
-  clearUser,
-  removeBlog
+  removeBlog,
+  initializeBlogs,
+  createSuccessNotification,
+  clearNotification,
+  createErrorNotification
 }
 const mapStateToProps = (state) => {
   return {

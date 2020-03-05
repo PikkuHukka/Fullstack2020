@@ -8,14 +8,20 @@ import { setUser } from '../reducers/userReducer'
 
 const LoginForm = (props) => {
 
+  const [password, setpassword] = useState('')
+  const [username, setusername] = useState('')
+
+  const usernameChange = (event) => {
+    setusername(event.target.value)
+  }
+
+  const passwordChange = (event) => {
+    setpassword(event.target.value)
+  }
+
+
   const handleLogin = async (event) => {
     event.preventDefault()
-
-    const username = event.target.username.value
-    const password = event.target.password.value
-    console.log('username: ', username)
-    console.log('password: ', password)
-
     props.setUser({ username, password })
 
 
@@ -32,6 +38,7 @@ const LoginForm = (props) => {
           <input
             id='username'
             name='username'
+            onChange={usernameChange}
           />
         </div>
         <div>
@@ -40,6 +47,8 @@ const LoginForm = (props) => {
             id='password'
             name='password'
             type="password"
+            onChange={passwordChange}
+
           />
         </div>
         <button id="login-button" type="submit">login</button>

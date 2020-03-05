@@ -1,13 +1,11 @@
-const notificationReducer = (state = '', action) => {
+const notificationReducer = (state = null, action) => {
   switch (action.type) {
     case 'NEW_NOTIFICATION': {
-      return ('Added new anecdote: ' + action.data)
+      return action.data
     }
-    case 'VOTE_NOTIFICATION': {
-      return ('Voted: ' + action.data)
-    }
+
     case 'REMOVE_NOTIFICATION': {
-      return ''
+      return null
     }
     default:
       return state
@@ -15,21 +13,29 @@ const notificationReducer = (state = '', action) => {
 }
 
 
-export const createVoteNotification = (content) => {
-  return {
-    type: 'VOTE_NOTIFICATION',
-    data: content
+export const createErrorNotification = (content) => {
+  const notificationObject = {
+    message: content,
+    type: 'error'
   }
-}
-
-export const createNotification = (content) => {
   return {
     type: 'NEW_NOTIFICATION',
-    data: content
+    data: notificationObject
   }
 }
 
-export const cancelNotification = () => {
+export const createSuccessNotification = (content) => {
+  const notificationObject = {
+    message: content,
+    type: 'success'
+  }
+  return {
+    type: 'NEW_NOTIFICATION',
+    data: notificationObject
+  }
+}
+
+export const clearNotification = () => {
   return {
     type: 'REMOVE_NOTIFICATION'
   }

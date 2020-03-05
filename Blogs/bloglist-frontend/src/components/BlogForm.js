@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { createBlog } from '../reducers/blogReducer'
+import { createSuccessNotification, clearNotification } from '../reducers/notificationReducer'
 
 
 const BlogForm = (props) => {
@@ -28,6 +29,12 @@ const BlogForm = (props) => {
       likes: 0,
       url: newUrl,
     }, props.user)
+
+    props.createSuccessNotification(`Created new blog: ${newTitle}.`)
+    setTimeout(() => {
+      props.clearNotification()
+    }, 5000)
+
 
     setNewAuthor('')
     setNewTitle('')
@@ -76,7 +83,9 @@ const BlogForm = (props) => {
 }
 
 const dispatchToProps = {
-  createBlog
+  createBlog,
+  createSuccessNotification,
+  clearNotification
 }
 const mapStateToProps = (state) => {
   return {
