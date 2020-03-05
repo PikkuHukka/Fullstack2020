@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import blogService from '../services/blogs'
-import loginService from '../services/login'
 import { setLogin } from '../reducers/loginReducer'
 
 
 
 const LoginForm = (props) => {
 
-  const [password, setpassword] = useState('')
-  const [username, setusername] = useState('')
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
 
   const usernameChange = (event) => {
-    setusername(event.target.value)
+    setUsername(event.target.value)
   }
 
   const passwordChange = (event) => {
-    setpassword(event.target.value)
+    setPassword(event.target.value)
   }
 
 
   const handleLogin = async (event) => {
     event.preventDefault()
     props.setLogin({ username, password })
-
   }
 
 

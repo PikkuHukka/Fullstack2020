@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
-  BrowserRouter as Router,
   Redirect, Route, useParams
 } from "react-router-dom"
 import { createSuccessNotification, createErrorNotification, clearNotification } from '../reducers/notificationReducer'
-import { newLike, removeBlog } from '../reducers/blogReducer'
+import { newLike, removeBlog, newComment } from '../reducers/blogReducer'
 
 const Blog = (props) => {
+
+  const [comment, setComment] = useState('')
   const id = useParams().id
   const blog = props.blogs.find(blog => blog.id === id)
+
+  const commentChange = (event) => {
+    setComment(event.target.value)
+  }
 
   const likeHandler = async () => {
     props.newLike(blog.id)
@@ -18,6 +23,13 @@ const Blog = (props) => {
       props.clearNotification()
     }, 5000)
   }
+
+  const handleComment = async (event) => {
+    event.preventDefault()
+    props.newComment(blog.id, comment)
+    setComment('')
+  }
+
   const removeHandler = async () => {
 
     if (!window.confirm(`Do you really want to remove ${blog.title}?`)) {
@@ -32,7 +44,6 @@ const Blog = (props) => {
 
   }
 
-  console.log(blog)
   if (!blog) {
     return (
       <div>
@@ -52,6 +63,26 @@ const Blog = (props) => {
         {blog.user.username === props.login.username ?
           <button onClick={() => removeHandler()}>Remove</button>
           : null}
+        <h3>Comments:</h3>
+        <ul>
+          {blog.comments.map((comment, index) =>
+            <li key={index}>{comment}</li>
+          )
+          }
+          <form onSubmit={handleComment}>
+            <div>
+              Comment:
+          <input
+                id="comment"
+                type="comment"
+                value={comment}
+                name="comment"
+                onChange={commentChange}
+              />
+            </div>
+            <button id="submit" type="submit">create</button>
+          </form>
+        </ul>
       </div>
     )
   }
@@ -62,7 +93,8 @@ const dispatchToProps = {
   createErrorNotification,
   clearNotification,
   newLike,
-  removeBlog
+  removeBlog,
+  newComment
 }
 
 const mapStateToProps = (state) => {

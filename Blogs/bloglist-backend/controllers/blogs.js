@@ -33,6 +33,7 @@ blogsRouter.post('/', async (request, response) => {
     author: body.author,
     likes: body.likes === undefined ? 0 : body.likes,
     url: body.url,
+    comments: [],
     user: user._id
   })
 
@@ -93,6 +94,7 @@ blogsRouter.put('/:id', async (request, response) => {
     author: body.author,
     likes: body.likes === undefined ? 0 : body.likes,
     url: body.url,
+    comments: body.comments,
     date: new Date()
   }
 

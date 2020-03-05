@@ -33,20 +33,13 @@ const App = (props) => {
 
   useEffect(() => {
     props.initializeBlogs()
-  }, [])
-
-  useEffect(() => {
     props.initializeUsers()
-  }, [])
-
-  useEffect(() => {
     if (loggedLoginJSON) {
       const login = JSON.parse(loggedLoginJSON)
       props.setLoginFromToken(login)
       blogService.setToken(login.token)
     }
   }, [])
-
 
 
   return (

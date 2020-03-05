@@ -39,5 +39,10 @@ const likeBlog = async (id) => {
   changedBlog.data.likes = changedBlog.data.likes + 1
   return axios.put(`${baseUrl}/${id}`, changedBlog.data)
 }
+const commentBlog = async (id, comment) => {
+  const changedBlog = await axios.get(`${baseUrl}/${id}`)
+  changedBlog.data.comments.push(comment)
+  return axios.put(`${baseUrl}/${id}`, changedBlog.data)
+}
 
-export default { getAll, create, update, setToken, remove, likeBlog }
+export default { getAll, create, update, setToken, remove, likeBlog, commentBlog }
