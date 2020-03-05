@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import blogService from '../services/blogs'
 import loginService from '../services/login'
-import { setUser } from '../reducers/userReducer'
+import { setLogin } from '../reducers/loginReducer'
 
 
 
@@ -22,8 +22,7 @@ const LoginForm = (props) => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    props.setUser({ username, password })
-
+    props.setLogin({ username, password })
 
   }
 
@@ -59,12 +58,12 @@ const LoginForm = (props) => {
 
 
 const dispatchToProps = {
-  setUser
+  setLogin
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    login: state.login
   }
 }
 

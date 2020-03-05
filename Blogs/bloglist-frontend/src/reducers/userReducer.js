@@ -1,48 +1,22 @@
-import loginService from '../services/login'
-import { createSuccessNotification } from '../reducers/notificationReducer'
+import userService from '../services/users'
 
-const userReducer = (state = null, action) => {
+const userReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_LOGIN':
+    case 'INIT_USERS':
       return action.data
-    case 'CLEAR_LOGIN':
-      return null
     default:
       return state
   }
 }
 
-export const setUser = (content) => {
+export const initializeUsers = () => {
   return async dispatch => {
-    const user = await loginService.login(content)
-    window.localStorage.setItem(
-      'loggedBlogappUser', JSON.stringify(user)
-    )
+    const users = await userService.getAll()
     dispatch({
-      type: 'SET_LOGIN',
-      data: user
+      type: 'INIT_USERS',
+      data: users
     })
   }
 }
-
-export const setUserFromToken = (content) => {
-  return async dispatch => {
-
-    dispatch({
-      type: 'SET_LOGIN',
-      data: content
-    })
-  }
-}
-
-export const clearUser = () => {
-  return async dispatch => {
-    window.localStorage.clear()
-    dispatch({
-      type: 'CLEAR_LOGIN'
-    })
-  }
-}
-
 
 export default userReducer

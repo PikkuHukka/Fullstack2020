@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { newLike, removeBlog, initializeBlogs } from '../reducers/blogReducer'
+import { newLike, removeBlog } from '../reducers/blogReducer'
 import { createSuccessNotification, createErrorNotification, clearNotification } from '../reducers/notificationReducer'
 import Blog from './Blog'
+import { Link } from "react-router-dom"
 
 
 
 const Blogs = (props) => {
 
-  useEffect(() => {
-    props.initializeBlogs()
-  }, [])
+
 
   const likeHandler = async (blog) => {
     props.newLike(blog.id)
@@ -32,20 +31,24 @@ const Blogs = (props) => {
 
   }
 
-
+  /* 
+  
+  <Blog
+                blog={blog}
+                handleLike={() =>
+                  likeHandler(blog)}
+                handleRemove={() =>
+                  removeHandler(blog)}
+                login={props.login}
+              />
+  */
   return (
     <div>
       <ul>
         {props.visibleBlogs.map(blog =>
           <div key={blog.id}>
-            <Blog
-              blog={blog}
-              handleLike={() =>
-                likeHandler(blog)}
-              handleRemove={() =>
-                removeHandler(blog)}
-              user={props.user}
-            />
+            <Link to={`blogs/${blog.id}`} ><h3>{`${blog.title}`}</h3></Link>
+
           </div>
         )}
       </ul>
@@ -64,7 +67,6 @@ const blogsToShow = ({ blogs }) => {
 const dispatchToProps = {
   newLike,
   removeBlog,
-  initializeBlogs,
   createSuccessNotification,
   clearNotification,
   createErrorNotification
@@ -72,7 +74,7 @@ const dispatchToProps = {
 const mapStateToProps = (state) => {
   return {
     visibleBlogs: blogsToShow(state),
-    user: state.user
+    login: state.login
   }
 }
 
