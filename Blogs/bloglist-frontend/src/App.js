@@ -52,7 +52,6 @@ const App = (props) => {
             <LoginForm />
           </div >
           :
-
           < div >
             <Header />
             <Switch>
@@ -65,7 +64,7 @@ const App = (props) => {
               <Route path="/users">
                 <Users />
               </Route>
-              <Route path="/">
+              <Route path="/blogs">
                 <Blogs />
                 <BlogForm />
               </Route>

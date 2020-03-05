@@ -9,6 +9,8 @@ import { newLike, removeBlog, newComment } from '../reducers/blogReducer'
 const Blog = (props) => {
 
   const [comment, setComment] = useState('')
+  const [redirect, setRedirect] = useState(false)
+
   const id = useParams().id
   const blog = props.blogs.find(blog => blog.id === id)
 
@@ -35,24 +37,28 @@ const Blog = (props) => {
     if (!window.confirm(`Do you really want to remove ${blog.title}?`)) {
       return
     }
+    setRedirect(true)
     props.createErrorNotification(`Removed ${blog.title}.`)
     props.removeBlog(blog.id)
     setTimeout(() => {
       props.clearNotification()
     }, 5000)
-
-
   }
 
-  if (!blog) {
+  console.log(redirect)
+  if (redirect) {
     return (
       <div>
         <Route>
-          <Redirect to="/" />
+          <Redirect to="/blogs" />
         </Route>
       </div>
+
     )
-  } else {
+  } else if (!blog) {
+    return null
+  }
+  else {
     return (
       <div>
         <h2>{blog.title}</h2>

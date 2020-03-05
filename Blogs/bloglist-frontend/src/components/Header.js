@@ -13,7 +13,7 @@ const Header = (props) => {
   }
   return (
     <div>
-      <Link style={padding} to="/">blogs</Link>
+      <Link style={padding} to="/blogs">blogs</Link>
       <Link style={padding} to="/users">users</Link>
       <p>Logged in: {props.login.username}</p>
       <button onClick={handleLogout}>Logout </button>
