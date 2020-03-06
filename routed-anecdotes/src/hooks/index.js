@@ -7,7 +7,8 @@ export const useField = (type) => {
     setValue(event.target.value)
   }
 
-  const reset = () => {
+  const reset = (event) => {
+    event.preventDefault()
     setValue('')
   }
 
@@ -18,3 +19,5 @@ export const useField = (type) => {
     reset
   }
 }
+
+
