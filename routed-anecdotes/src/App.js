@@ -171,6 +171,7 @@ const App = () => {
   }
 
   return (
+
     <Router>
       <h3>{notification}</h3>
       {notification !== '' ?
@@ -195,6 +196,7 @@ const App = () => {
       </Switch>
       <Footer />
     </Router>
+
   )
 }
 

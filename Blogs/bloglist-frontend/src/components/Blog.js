@@ -6,6 +6,9 @@ import {
 import { createSuccessNotification, createErrorNotification, clearNotification } from '../reducers/notificationReducer'
 import { newLike, removeBlog, newComment } from '../reducers/blogReducer'
 
+import { Button, Form } from 'react-bootstrap'
+
+
 const Blog = (props) => {
 
   const [comment, setComment] = useState('')
@@ -64,31 +67,33 @@ const Blog = (props) => {
         <h2>{blog.title}</h2>
         <h3>Author: {blog.author}</h3>
         <h3>Likes: {blog.likes}</h3>
-        <button onClick={() => likeHandler()}>Like</button>
+        <Button onClick={() => likeHandler()}>Like</Button>
+
         <p>Added by: {blog.user.username}</p>
         {blog.user.username === props.login.username ?
-          <button onClick={() => removeHandler()}>Remove</button>
+          <Button onClick={() => removeHandler()}>
+            Remove
+          </Button>
           : null}
         <h3>Comments:</h3>
-        <ul>
-          {blog.comments.map((comment, index) =>
-            <li key={index}>{comment}</li>
-          )
-          }
-          <form onSubmit={handleComment}>
-            <div>
-              Comment:
-          <input
-                id="comment"
-                type="comment"
-                value={comment}
-                name="comment"
-                onChange={commentChange}
-              />
-            </div>
-            <button id="submit" type="submit">create</button>
-          </form>
-        </ul>
+        {blog.comments.map((comment, index) =>
+          <li key={index}>{comment}</li>
+        )
+        }
+        <Form onSubmit={handleComment}>
+          <div>
+            <Form.Label> New Comment:</Form.Label>
+
+            <Form.Control
+              id="comment"
+              type="comment"
+              value={comment}
+              name="comment"
+              onChange={commentChange}
+            />
+          </div>
+          <Button id="submit" type="submit">create</Button>
+        </Form>
       </div>
     )
   }

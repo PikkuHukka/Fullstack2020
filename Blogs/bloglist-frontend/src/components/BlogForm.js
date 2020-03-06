@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { createBlog } from '../reducers/blogReducer'
 import { createSuccessNotification, clearNotification } from '../reducers/notificationReducer'
+import { Form, Button } from 'react-bootstrap'
 
 
 const BlogForm = (props) => {
@@ -45,40 +46,42 @@ const BlogForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={addBlog}>
-        <div>
-          title
-          <input
+      <Form onSubmit={addBlog}>
+        <Form.Group>
+
+          <Form.Label> username:</Form.Label>
+          <Form.Control
             id="title"
             type="text"
             value={newTitle}
             name="title"
             onChange={titleChange}
           />
-        </div>
-        <div>
-          author
-          <input
+
+          <Form.Label> author:</Form.Label>
+          <Form.Control
+
             id="author"
             type="text"
             value={newAuthor}
             name="author"
             onChange={authorChange}
           />
-        </div>
-        <div>
-          url
-          <input
+          <Form.Label> url:</Form.Label>
+
+          <Form.Control
             id="url"
             type="text"
             value={newUrl}
             name="url"
             onChange={urlChange}
           />
-        </div>
-        <button id="submit" type="submit">create</button>
-      </form>
-    </div>
+          <Button id="submit-button" variant="primary" type="submit">
+            Create Blog
+          </Button>
+        </Form.Group>
+      </Form>
+    </div >
   )
 }
 

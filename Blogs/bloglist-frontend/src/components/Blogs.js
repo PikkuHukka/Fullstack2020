@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { newLike, removeBlog } from '../reducers/blogReducer'
 import { createSuccessNotification, createErrorNotification, clearNotification } from '../reducers/notificationReducer'
 import { Link } from "react-router-dom"
+import { Table } from 'react-bootstrap'
+
 
 
 
@@ -10,14 +12,22 @@ const Blogs = (props) => {
 
   return (
     <div>
-      <ul>
-        {props.visibleBlogs.map(blog =>
-          <div key={blog.id}>
-            <Link to={`blogs/${blog.id}`} ><h3>{`${blog.title}`}</h3></Link>
+      <h2>Blogs</h2>
+      <Table striped>
+        <tbody>
+          {props.visibleBlogs.map(blog =>
+            <tr key={blog.id}>
+              <td>
+                <Link to={`blogs/${blog.id}`} ><h3>{`${blog.title}`}</h3></Link>
+              </td>
 
-          </div>
-        )}
-      </ul>
+            </tr>
+
+          )}
+        </tbody>
+
+      </Table>
+
     </div >
 
   )

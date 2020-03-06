@@ -4,19 +4,30 @@ import { connect } from 'react-redux'
 import { clearLogin } from '../reducers/loginReducer'
 
 const Header = (props) => {
-  const padding = {
-    padding: 5
+
+  const headerStyle = {
+    border: 'solid',
+    borderWidth: 5,
+    padding: 10,
+
   }
+  const padding = {
+    padding: 5,
+  }
+  const toRight = {
+    padding: 5,
+    float: 'right'
+  }
+
   const handleLogout = async (event) => {
     event.preventDefault()
     props.clearLogin()
   }
   return (
-    <div>
+    <div style={headerStyle}>
       <Link style={padding} to="/blogs">blogs</Link>
       <Link style={padding} to="/users">users</Link>
-      <p>Logged in: {props.login.username}</p>
-      <button onClick={handleLogout}>Logout </button>
+      <p >Logged in: {props.login.username} <button style={toRight} onClick={handleLogout}>Logout </button></p>
     </div>
   )
 }

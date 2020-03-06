@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { setLogin } from '../reducers/loginReducer'
+import { Form, Button } from 'react-bootstrap'
 
 
 
@@ -28,27 +29,30 @@ const LoginForm = (props) => {
     <div>
       <h2>Login</h2>
 
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
+      <Form onSubmit={handleLogin}>
+        <Form.Group>
+
+          <Form.Label>username:</Form.Label>
+
+          <Form.Control
             id='username'
             name='username'
             onChange={usernameChange}
           />
-        </div>
-        <div>
-          password
-          <input
+          <Form.Label>password:</Form.Label>
+          <Form.Control
             id='password'
             name='password'
             type="password"
             onChange={passwordChange}
 
           />
-        </div>
-        <button id="login-button" type="submit">login</button>
-      </form>
+          <Button id="login-button" variant="primary" type="submit">
+            Login
+          </Button>
+        </Form.Group>
+
+      </Form>
     </div>
   )
 }

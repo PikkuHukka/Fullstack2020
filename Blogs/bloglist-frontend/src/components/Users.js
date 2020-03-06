@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
+import { Table } from 'react-bootstrap'
 
 
 
@@ -9,21 +10,29 @@ const Users = (props) => {
   return (
     <div>
       <h3>Users</h3>
+
       {props.users ?
-        < ul >
-          {
-            props.users.map(user =>
-              <div key={user.id}>
-                <Link to={`users/${user.id}`} >{`${user.username}`}</Link>
-                <p>{` Total blogs: ${user.blogs.length}`} </p>
-              </div>
+        <Table striped>
+          <tbody>
+            {props.users.map(user =>
+              <tr key={user.id}>
+                <td>
+                  <Link to={`users/${user.id}`} >
+                    {`${user.username}`}
+                  </Link>
+                </td>
+                <td>
+                  {` Total blogs: ${user.blogs.length}`}
+                </td>
+              </tr>
             )
-          }
-        </ul>
+            }
+          </tbody>
+
+        </Table>
         :
         null
       }
-
 
     </div >
   )
