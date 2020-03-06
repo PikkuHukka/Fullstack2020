@@ -1,0 +1,24 @@
+{
+  "notes": [
+    {
+      "content": "Koodaus on kivaa",
+      "id": 1
+    },
+    {
+      "content": "Hupsu viesti",
+      "id": 2
+    }
+  ],
+  "persons": [
+    {
+      "name": "Olli",
+      "number": "43243123123",
+      "id": 1
+    },
+    {
+      "name": "Ville",
+      "number": "24234321113",
+      "id": 2
+    }
+  ]
+}

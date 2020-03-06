@@ -39,8 +39,6 @@ const blogReducer = (state = [], action) => {
         ...blogToComment,
         comments: changedComments
       }
-
-
       return state.map(blog =>
         blog.id !== commentedBlog ? blog : commentedBlog
       )
