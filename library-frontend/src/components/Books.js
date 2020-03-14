@@ -8,11 +8,14 @@ import { ALL_BOOKS } from '../queries'
 
 const Books = (props) => {
 
+  const [filterInput, setFilterInput] = useState("")
+  const [genreFilter, setGenreFilter] = useState("")
+  var result = useQuery(ALL_BOOKS, { variables: { genreFilter: genreFilter } })
 
-  const [genre, setGenre] = useState("")
-  const result = useQuery(ALL_BOOKS, { variables: genre })
-
-
+  const handleFilter = () => {
+    setGenreFilter(filterInput)
+  }
+  console.log(result.data)
 
   if (!props.show) {
     return null
@@ -20,18 +23,7 @@ const Books = (props) => {
   if (result.loading) {
     return <div>loading...</div>
   } else {
-
     var books = result.data.allBooks
-    console.log(books)
-    console.log(genre)
-    books = books.filter(b => {
-      if (genre === "") {
-        return b
-      }
-      if (b.genres.filter(g => g.includes(genre)).length > 0) {
-        return b
-      }
-    })
 
     return (
       <div>
@@ -57,10 +49,11 @@ const Books = (props) => {
             )}
           </tbody>
         </table>
-        <p>Genre Filter</p>
-        <input value={genre}
-          onChange={({ target }) => setGenre(target.value)} ></input>
 
+        <p>Genre Filter</p>
+        <input value={filterInput}
+          onChange={({ target }) => setFilterInput(target.value)} ></input>
+        <button onClick={handleFilter}>set genre</button>
       </div >
     )
   }
